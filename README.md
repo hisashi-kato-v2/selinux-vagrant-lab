@@ -17,3 +17,9 @@ git clone https://github.com/yourname/selinux-vagrant-lab.git
 cd selinux-vagrant-lab
 vagrant up
 ```
+
+以下のコマンドでコンソールから SSH 接続
+
+```
+vagrant ssh
+```
