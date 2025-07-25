@@ -9,5 +9,9 @@ Vagrant.configure("2") do |config|
     vb.cpus = 1
   end
 
+  config.vm.provision "shell", inline: <<-SHELL
+    echo "nameserver 8.8.8.8" > /etc/resolv.conf
+  SHELL
+
   config.vm.provision "shell", path: "provision.sh"
 end
