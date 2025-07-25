@@ -1,19 +1,28 @@
 #!/bin/bash
 
-# SELinux 必須パッケージのインストール
-yum install -y policycoreutils policycoreutils-python setroubleshoot
+# 基本パッケージのインストール
+yum install -y epel-release
+yum install -y policycoreutils policycoreutils-python setroubleshoot httpd
 
-# SELinuxをEnforcingに設定（永続）
+# SELinuxをenforcingモードに設定（永続）
 sed -i 's/^SELINUX=.*/SELINUX=enforcing/' /etc/selinux/config
-
-# 今すぐEnforcingに変更（再起動不要）
 setenforce 1
 
-# firewalld停止（開発環境用）
+# Apacheを起動・自動起動
+systemctl enable httpd
+systemctl start httpd
+
+# ドキュメントルートにテストファイルを作成
+echo "SELinux Test Page" > /var/www/html/index.html
+
+# firewalldは停止（学習用）
 systemctl stop firewalld
 systemctl disable firewalld
 
-# 確認用出力
-echo "=== SELinux status ==="
+# 状態出力
+echo "=== SELinux Mode ==="
 getenforce
+echo "=== SELinux status ==="
 sestatus
+echo "=== httpd Status ==="
+systemctl status httpd
