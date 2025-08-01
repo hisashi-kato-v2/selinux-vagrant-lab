@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # 基本パッケージのインストール
-yum install -y epel-release
-yum install -y policycoreutils policycoreutils-python setroubleshoot httpd
+dnf install -y epel-release
+dnf install -y policycoreutils policycoreutils-python-utils setroubleshoot-server httpd
 
 # SELinuxをenforcingモードに設定（永続）
 sed -i 's/^SELINUX=.*/SELINUX=enforcing/' /etc/selinux/config
